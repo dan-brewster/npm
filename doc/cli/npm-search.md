@@ -3,7 +3,7 @@ npm-search(1) -- Search for packages
 
 ## SYNOPSIS
 
-    npm search [-l|--long] [--json] [--tab-separated] [search terms ...]
+    npm search [-l|--long] [--json] [--parseable] [search terms ...]
 
     aliases: s, se, find
 
@@ -24,7 +24,7 @@ expression characters must be escaped or quoted in most shells.)
 
 Output search results as a JSON array.
 
-### tab-separated
+### parseable
 
 * Default: false
 * Type: Boolean

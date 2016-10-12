@@ -137,7 +137,7 @@ test('can switch to tab separated mode', function (t) {
   fixture.create(cachePath)
   common.npm([
     'search', 'oo',
-    '--tab-separated',
+    '--parseable',
     '--registry', common.registry,
     '--loglevel', 'error',
     '--cache', CACHE_DIR
@@ -164,7 +164,7 @@ test('tab mode does not notify on empty', function (t) {
   fixture.create(cachePath)
   common.npm([
     'search', 'nomatcheswhatsoeverfromthis',
-    '--tab-separated',
+    '--parseable',
     '--registry', common.registry,
     '--loglevel', 'error',
     '--cache', CACHE_DIR

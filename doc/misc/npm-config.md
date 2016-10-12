@@ -655,7 +655,7 @@ process is not aborted.
 * Type: Boolean
 
 Output parseable results from commands that write to
-standard output.
+standard output. For `npm search`, this will be tab-separated table format.
 
 ### prefix
 
@@ -870,17 +870,6 @@ Whether or not to do SSL key validation when making requests to the
 registry via https.
 
 See also the `ca` config.
-
-### tab-separated
-
-* Default: false
-* Type: Boolean
-
-Whether or not to output tab-separated data, rather than the normal output.
-
-This feature is currently experimental, and the output data structures for many
-commands is either not implemented in tabs yet, or subject to change.  Only the
-output from `npm search --tab-separated` is currently valid.
 
 ### tag
 
