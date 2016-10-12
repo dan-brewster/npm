@@ -9,7 +9,7 @@ var ms = require('mississippi')
 var Tacks = require('tacks')
 var File = Tacks.File
 
-var _createCacheEntryStream = require('../../lib/cache/update-index.js')._createCacheEntryStream
+var _createCacheEntryStream = require('../../lib/search/all-package-metadata.js')._createCacheEntryStream
 
 var PKG_DIR = path.resolve(__dirname, 'create-cache-entry-stream')
 var CACHE_DIR = path.resolve(PKG_DIR, 'cache')
