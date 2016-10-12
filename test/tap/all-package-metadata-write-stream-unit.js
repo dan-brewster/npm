@@ -9,7 +9,7 @@ var path = require('path')
 var fs = require('fs')
 var ms = require('mississippi')
 
-var _createCacheWriteStream = require('../../lib/cache/update-index.js')._createCacheWriteStream
+var _createCacheWriteStream = require('../../lib/search/all-package-metadata.js')._createCacheWriteStream
 
 var PKG_DIR = path.resolve(__dirname, 'create-cache-write-stream')
 var CACHE_DIR = path.resolve(PKG_DIR, 'cache')
