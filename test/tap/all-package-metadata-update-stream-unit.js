@@ -9,7 +9,7 @@ var path = require('path')
 var mr = require('npm-registry-mock')
 var ms = require('mississippi')
 
-var _createEntryUpdateStream = require('../../lib/cache/update-index.js')._createEntryUpdateStream
+var _createEntryUpdateStream = require('../../lib/search/all-package-metadata.js')._createEntryUpdateStream
 
 var ALL = common.registry + '/-/all'
 var PKG_DIR = path.resolve(__dirname, 'create-entry-update-stream')
