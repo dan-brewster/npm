@@ -195,26 +195,116 @@ test('no arguments provided should error', function (t) {
 var searches = [
   {
     term: 'cool',
-    description: 'non-regex',
+    description: 'non-regex search',
     location: 103
   },
   {
     term: '/cool/',
-    description: 'regex',
+    description: 'regex search',
     location: 103
+  },
+  {
+    term: 'cool',
+    description: 'searches name field',
+    location: 103
+  },
+  {
+    term: 'neat lib',
+    description: 'searches description field',
+    location: 141,
+    inject: {
+      cool: {
+        name: 'cool', version: '5.0.0', description: 'this is a neat lib'
+      }
+    }
+  },
+  {
+    term: 'foo',
+    description: 'skips description field with --no-description',
+    location: 80,
+    inject: {
+      cool: {
+        name: 'cool', version: '5.0.0', description: 'foo bar!'
+      }
+    },
+    extraOpts: ['--no-description']
+  },
+  {
+    term: 'zkat',
+    description: 'searches maintainers by name',
+    location: 155,
+    inject: {
+      cool: {
+        name: 'cool',
+        version: '5.0.0',
+        maintainers: [{
+          name: 'zkat'
+        }]
+      }
+    }
+  },
+  {
+    term: '=zkat',
+    description: 'searches maintainers unambiguously by =name',
+    location: 154,
+    inject: {
+      bar: { name: 'bar', description: 'zkat thing', version: '1.0.0' },
+      cool: {
+        name: 'cool',
+        version: '5.0.0',
+        maintainers: [{
+          name: 'zkat'
+        }]
+      }
+    }
+  },
+  {
+    term: 'github.com',
+    description: 'searches projects by url',
+    location: 205,
+    inject: {
+      bar: {
+        name: 'bar',
+        url: 'gitlab.com/bar',
+        // For historical reasons, `url` is only present if `versions` is there
+        versions: ['1.0.0'],
+        version: '1.0.0'
+      },
+      cool: {
+        name: 'cool',
+        version: '5.0.0',
+        versions: ['1.0.0'],
+        url: 'github.com/cool/cool'
+      }
+    }
+  },
+  {
+    term: 'monad',
+    description: 'searches projects by keywords',
+    location: 197,
+    inject: {
+      cool: {
+        name: 'cool',
+        version: '5.0.0',
+        keywords: ['monads']
+      }
+    }
   }
 ]
 
 searches.forEach(function (search) {
-  test(search.description + ' search in color', function (t) {
+  test(search.description, function (t) {
     setup()
     var now = Date.now()
     var cacheContents = {
       '_updated': now,
       bar: { name: 'bar', version: '1.0.0' },
-      cool: { name: 'cool', version: '1.0.0' },
+      cool: { name: 'cool', version: '5.0.0' },
       foo: { name: 'foo', version: '2.0.0' },
       other: { name: 'other', version: '1.0.0' }
+    }
+    for (var k in search.inject) {
+      cacheContents[k] = search.inject[k]
     }
     var fixture = new Tacks(File(cacheContents))
     fixture.create(cachePath)
@@ -224,7 +314,7 @@ searches.forEach(function (search) {
       '--cache', CACHE_DIR,
       '--loglevel', 'error',
       '--color', 'always'
-    ],
+    ].concat(search.extraOpts || []),
     {},
     function (err, code, stdout, stderr) {
       t.equal(stderr, '', 'no error output')
