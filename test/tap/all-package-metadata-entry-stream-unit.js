@@ -11,7 +11,7 @@ var ms = require('mississippi')
 var Tacks = require('tacks')
 var File = Tacks.File
 
-var _createEntryStream = require('../../lib/cache/update-index.js')._createEntryStream
+var _createEntryStream = require('../../lib/search/all-package-metadata.js')._createEntryStream
 
 var ALL = common.registry + '/-/all'
 var PKG_DIR = path.resolve(__dirname, 'create-entry-update-stream')
